@@ -1,5 +1,5 @@
 class EventObject:
-    counter=0
+    counter = 0
     def __init__(self):
-        self.id=self.counter
-        self.counter+=1
+        self.id = self.counter
+        self.counter += 1

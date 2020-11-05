@@ -4,49 +4,62 @@ from controller import *
 import pygame
 from Common import *
 pygame.font.init()
-menuFont = pygame.font.SysFont("monospace",62)
+menuFont = pygame.font.SysFont("monospace", 62)
 
 class Menu(EventObject):
     event_system = Controller.event_system
     ###holds all the data for a single menu state instance
-    def __init__(self,name,buttons,butCol=(255,255,255),txtCol=(255,255,0)):
+    def __init__(self, name, buttons, button_colour=(255,255,255), text_colour=(255,255,0)):
         EventObject.__init__(self)
         self.name = name
         self.buttons = buttons
-        self.butCol = butCol
-        self.txtCol = txtCol
+        self.button_colour = button_colour
+        self.text_colour = text_colour
         self.title = Title(self.name)
 
-    def draw(self,screen,offX=0,offY=0):
+    def draw(self,screen, offset_x = 0, offset_y = 0 ):
         if self.title:
-            self.title.draw(screen,self.txtCol,[offX,offY])
+            self.title.draw(screen, self.text_colour, [offset_x, offset_y])
         for but in self.buttons:
-            but.draw(screen,self.txtCol,[offX,offY])
+            but.draw(screen, self.text_colour, [offset_x, offset_y])
 
 
 class Title(EventObject):
     event_system = Controller.event_system
-    def __init__(self,text,x=-125,y=-400):
+    def __init__(self, text, x = -125, y = -400):
         EventObject.__init__(self)
         self.text = text
-        self.location = [x,y]
+        self.location = [x, y]
 
-    def draw(self,screen,txtColour,offset):
-        label = menuFont.render(self.text,1,txtColour)
-        screen.blit(label,(screen.get_width()/2 + self.location[0] + offset[0],screen.get_height()/2 + self.location[1] + offset[1]))
+    def draw(self, screen, text_colour, offset):
+        label = menuFont.render(self.text, 1, text_colour)
+        screen.blit(
+        label,
+        (screen.get_width() / 2 + self.location[0] + offset[0],
+        screen.get_height() / 2 + self.location[1] + offset[1]))
 
 class Button(EventObject):
     event_system = Controller.event_system
-    def __init__(self,text,x,y,colour=(255,255,255),rect=None):
+    def __init__(self, text, x, y, colour = (255,255,255), rect = None):
         EventObject.__init__(self)
         self.text = text
-        self.location = [x,y]
+        self.location = [x, y]
         self.colour = colour
         self.dimensions = menuFont.size(self.text)
-    def draw(self,screen,txtColour,offset):
-        label = menuFont.render(self.text,1,txtColour)
-        self.rect = pygame.draw.rect(screen,self.colour,(screen.get_width()/2 + self.location[0] + offset[0],screen.get_height()/2 + self.location[1] + offset[1],self.dimensions[0],self.dimensions[1]))
-        screen.blit(label,(screen.get_width()/2 + self.location[0] + offset[0],screen.get_height()/2 + self.location[1] + offset[1]))
+
+    def draw(self, screen, text_colour, offset):
+        label = menuFont.render(self.text, 1, text_colour)
+        self.rect = pygame.draw.rect(
+        screen,
+        self.colour,
+        (screen.get_width() / 2 + self.location[0] + offset[0],
+        screen.get_height() / 2 + self.location[1] + offset[1],
+        self.dimensions[0],
+        self.dimensions[1]))
+        screen.blit(
+        label,
+        (screen.get_width() / 2 + self.location[0] + offset[0],
+        screen.get_height() / 2 + self.location[1] + offset[1]))
 
 menuList = {
     "pause" : Menu("Pause", (

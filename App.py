@@ -26,5 +26,5 @@ class App(EventObject):
         while self.event_system.running:
             if self.controller.running:
                 self.event_system.FireEvent(None, MAIN_LOOP_EVENT, 0)
-            while len(self.event_system.event_queue)>0:
+            while len(self.event_system.event_queue) > 0:
                 self.event_system.process()
